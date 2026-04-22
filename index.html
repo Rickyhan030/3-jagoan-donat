@@ -1,289 +1,262 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Bakery | Toko Roti Online</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakery Shop</title>
 
-    <style>
-        /* RESET & BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #fffaf5; color: #333; line-height: 1.6; }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-        /* NAVBAR */
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 15px;
-            background: #92402b;
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+<style>
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        /* HERO SECTION */
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #ff7b54, #ffb26b);
-            color: white;
-        }
-        .hero h1 { font-size: 2rem; margin-bottom: 10px; }
+body {
+    background-color: #fffaf5;
+    background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
 
-        /* CONTAINER UMUM */
-        .container { padding: 40px 5%; max-width: 1200px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 30px; color: #ff7b54; font-weight: 600; }
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(255, 123, 84, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        /* GALERI SLIDER (Horizontal Scroll) */
-        .gallery-wrapper {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
-            padding-bottom: 20px;
-            scrollbar-width: thin;
-        }
-        .gallery-wrapper img {
-            width: 250px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 15px;
-            flex-shrink: 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+}
 
-        /* MENU GRID */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 2px 2px 0px #e67e22,
+                 4px 4px 0px #d35400,
+                 6px 6px 15px rgba(0,0,0,0.3);
+    font-style: italic;
+}
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        
-        .card-info { padding: 20px; text-align: center; }
-        .card-info h3 { margin-bottom: 10px; font-size: 1.2rem; }
-        .card-info p { color: #ff7b54; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; }
+/* CONTAINER */
+.container {
+    padding: 50px 5%;
+    max-width: 1200px;
+    margin: auto;
+}
 
-        .btn-add {
-            width: 100%;
-            padding: 12px;
-            background: #ff7b54;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-add:hover { background: #e86a43; }
+/* TITLE */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ff7b54;
+}
 
-        /* KERANJANG */
-        .cart-section {
-            background: #fff;
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 40px;
-            border: 2px dashed #ff7b54;
-        }
-        #cartList { list-style: none; margin-bottom: 20px; }
-        #cartList li { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 10px 0; 
-            border-bottom: 1px solid #eee; 
-        }
+/* ===================== */
+/* SLIDER STYLE (FIXED) */
+/* ===================== */
+.gallery-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 
-        .btn-checkout {
-            width: 100%;
-            padding: 15px;
-            background: #25d366;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    gap: 20px;
+    padding: 20px 0;
 
-        /* FLOATING BUTTONS */
-        .floating-group {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 2000;
-        }
-        .float-btn {
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-        .bg-wa { background: #25d366; }
-        .bg-fb { background: #1877f2; }
+    scroll-behavior: smooth;
+}
 
-        footer { text-align: center; padding: 40px; background: #333; color: white; margin-top: 50px; }
-    </style>
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-wrapper img {
+    flex: 0 0 auto;
+    width: 280px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+
+    scroll-snap-align: center;
+    transition: 0.3s;
+}
+
+.gallery-wrapper img:active {
+    transform: scale(0.97);
+}
+
+/* PRODUCT GRID */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-info p {
+    color: #ff7b54;
+    font-weight: bold;
+}
+
+/* BUTTON */
+.btn-add {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ff7b54, #ffb26b);
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    transform: scale(1.05);
+}
+
+/* FOOTER */
+footer {
+    background: #2d2d2d;
+    color: white;
+    text-align: center;
+    padding: 40px;
+    margin-top: 60px;
+}
+</style>
 </head>
+
 <body>
 
-<<nav>
-    <div class="nav-container" ... >
-        <h2 style="font-size: 2.2rem; letter-spacing: 1px; font-weight: 800;">🍩 Sweet Bakery</h2>
-        ...
-    </div>
+<!-- NAV -->
+<nav>
+    <h3>Bakery Shop</h3>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-    <h1 style="
-    font-size: 3.5rem; 
-    font-weight: 900; 
-    text-transform: uppercase; 
-    font-style: italic;
-    color: #ffffff;
-    text-shadow: 3px 3px 0px #d35400, 6px 6px 0px rgba(0,0,0,0.1);
-    letter-spacing: 2px;
-    line-height: 1.1;
-">
-    3 JAGOAN DONAT <br> & BAKERY
-</h1>
-    <p>Fresh dari oven, langsung ke pintu rumahmu!</p>
+    <h1>Fresh Bakery & Donut</h1>
 </section>
 
-<<div class="gallery-wrapper">
-  <div class="gallery-track">
-    <img src="donat1.jpg">
-    <img src="donat2.jpg">
-    <img src="donat3.webp">
-    <!-- DUPLIKAT agar looping halus -->
-    <img src="donat1.jpg">
-    <img src="donat2.jpg">
-    <img src="donat3.webp">
-  </div>
-</div>
-
+<!-- GALERI SLIDER -->
 <div class="container">
-    <h2>Menu Pilihan</h2>
-    <div class="products-grid">
-        
-        <div class="card">
-            <img src="donat coklat.jpg" alt="Donat Coklat">
-            <div class="card-info">
-                <h3>Donat Coklat</h3>
-                <p>Rp 5.000</p>
-                <button class="btn-add" onclick="addCart('Donat Coklat', 5000)">Tambah Pesanan</button>
-            </div>
-            <div class="card">
-    <div class="badge">Best Seller</div> <img src="donat coklat.jpg" alt="Donat Coklat">
-    <div class="card-info">
-        <h3>Donat Coklat</h3>
-        <p>Rp 5.000</p>
-        <button class="btn-add" onclick="addCart('Donat Coklat', 5000)">Tambah ke Keranjang</button>
+    <h2>Gallery Produk</h2>
+
+    <div class="gallery-wrapper" id="slider">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff">
+        <img src="https://images.unsplash.com/photo-1519869325930-281384150729">
+        <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a">
     </div>
 </div>
-        </div>
 
+<!-- PRODUCTS -->
+<div class="container">
+    <h2>Menu</h2>
+
+    <div class="products-grid">
         <div class="card">
-            <img src="donat kerju2.jpg" alt="Donat Keju">
+            <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec">
             <div class="card-info">
-                <h3>Donat Keju</h3>
-                <p>Rp 6.000</p>
-                <button class="btn-add" onclick="addCart('Donat Keju', 6000)">Tambah Pesanan</button>
+                <h3>Donut Coklat</h3>
+                <p>Rp 10.000</p>
+                <button class="btn-add">Tambah</button>
             </div>
         </div>
 
         <div class="card">
-            <img src="donat mix.jpg" alt="Roti Manis">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
             <div class="card-info">
                 <h3>Roti Manis</h3>
-                <p>Rp 7.000</p>
-                <button class="btn-add" onclick="addCart('Roti Manis', 7000)">Tambah Pesanan</button>
+                <p>Rp 8.000</p>
+                <button class="btn-add">Tambah</button>
             </div>
         </div>
-
-    </div>
-
-    <div class="cart-section">
-        <h3>🛒 Keranjang Kamu</h3>
-        <ul id="cartList">
-            <li style="color: #888;">Belum ada item dipilih...</li>
-        </ul>
-        <h4 id="total" style="margin-bottom: 15px;">Total: Rp 0</h4>
-        <button class="btn-checkout" onclick="checkout()">Checkout via WhatsApp</button>
     </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Sweet Bakery - All Rights Reserved</p>
+    <p>© 2026 Bakery Shop - All Rights Reserved</p>
 </footer>
 
-<div class="floating-group">
-    <a href="https://wa.me/628XXXXXXXXXX" target="_blank" class="float-btn bg-wa">💬 WhatsApp</a>
-    <a href="https://m.me/USER_FB" target="_blank" class="float-btn bg-fb">📘 Facebook</a>
-</div>
-
+<!-- AUTO SLIDER JS -->
 <script>
-    let cart = [];
+const slider = document.getElementById("slider");
 
-    function addCart(nama, harga) {
-        cart.push({nama, harga});
-        renderCart();
+let scrollAmount = 0;
+const slideWidth = 300;
+
+function autoSlide() {
+    if (!slider) return;
+
+    scrollAmount += slideWidth;
+
+    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+        scrollAmount = 0;
     }
 
-    function renderCart() {
-        let list = document.getElementById("cartList");
-        let total = 0;
-        list.innerHTML = "";
+    slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
+}
 
-        if (cart.length === 0) {
-            list.innerHTML = "<li style='color: #888;'>Belum ada item dipilih...</li>";
-        }
+// auto jalan tiap 3 detik
+let interval = setInterval(autoSlide, 3000);
 
-        cart.forEach((item) => {
-            total += item.harga;
-            list.innerHTML += `<li><span>${item.nama}</span> <b>Rp ${item.harga.toLocaleString()}</b></li>`;
-        });
+// pause saat user sentuh
+slider.addEventListener("touchstart", () => clearInterval(interval));
+slider.addEventListener("mousedown", () => clearInterval(interval));
 
-        document.getElementById("total").innerText = "Total: Rp " + total.toLocaleString();
-    }
+// restart
+slider.addEventListener("touchend", () => {
+    interval = setInterval(autoSlide, 3000);
+});
 
-    function checkout() {
-        if (cart.length === 0) {
-            alert("Keranjang masih kosong!");
-            return;
-        }
-        let nomor = "628XXXXXXXXXX"; // GANTI NOMOR DISINI
-        let text = "*Pesanan Baru - Sweet Bakery*\n\n";
-        cart.forEach(item => {
-            text += `- ${item.nama} (Rp ${item.harga.toLocaleString()})\n`;
-        });
-        
-        let totalHarga = cart.reduce((sum, item) => sum + item.harga, 0);
-        text += `\n*Total Akhir: Rp ${totalHarga.toLocaleString()}*`;
-
-        let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
-        window.open(url, "_blank");
-    }
+slider.addEventListener("mouseup", () => {
+    interval = setInterval(autoSlide, 3000);
+});
 </script>
 
 </body>
