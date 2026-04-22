@@ -1,32 +1,36 @@
-<style>
-    /* RESET & BASE */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    
-    body { 
-        background-color: #fffaf5;
-        /* Tambahan tekstur halus agar tidak polos */
-        background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
-        background-size: 20px 20px;
-        color: #333; 
-        line-height: 1.6; 
-    }
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-    /* NAVBAR - Dibuat lebih modern */
-    nav {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        background: rgba(255, 123, 84, 0.95);
-        backdrop-filter: blur(10px); /* Efek kaca */
-        color: white;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+/* BODY */
+body {
+    background-color: #fffaf5;
+    background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: #333;
+    line-height: 1.6;
+}
 
-    /* HERO SECTION */
-    .hero {
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(255, 123, 84, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* HERO */
+.hero {
     position: relative;
 }
 
@@ -44,34 +48,41 @@
     100% { transform: translate(-50%, -50%); }
 }
 
-    /* CONTAINER */
-    .container { padding: 50px 5%; max-width: 1200px; margin: auto; }
-    h2 { 
-        text-align: center; 
-        margin-bottom: 40px; 
-        color: #ff7b54; 
-        font-weight: 600;
-        position: relative;
-    }
-    h2::after { /* Garis dekorasi di bawah judul */
-        content: '';
-        width: 60px;
-        height: 4px;
-        background: #ffb26b;
-        display: block;
-        margin: 10px auto;
-        border-radius: 10px;
-    }
+/* CONTAINER */
+.container {
+    padding: 50px 5%;
+    max-width: 1200px;
+    margin: auto;
+}
 
-    /* GALERI SLIDER */
+/* TITLE */
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #ff7b54;
+}
+
+h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: #ffb26b;
+    display: block;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+/* GALERI (FIX SWIPE HP) */
 .gallery-wrapper {
     display: flex;
+    flex-wrap: nowrap;
     overflow-x: auto;
     gap: 20px;
     padding: 20px 0;
 
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
 }
 
 .gallery-wrapper::-webkit-scrollbar {
@@ -83,137 +94,77 @@
     height: 200px;
     object-fit: cover;
     border-radius: 20px;
-
     flex-shrink: 0;
     scroll-snap-align: center;
 }
 
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+/* MENU GRID */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
-    .gallery-wrapper img:hover { transform: scale(1.05); }
 
-    /* MENU GRID */
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-    }
+/* CARD */
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
 
-    .card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(5px);
-        border-radius: 30px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.3);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-    }
-    .card:hover { 
+.card:hover {
     transform: translateY(-8px) scale(1.02);
 }
-    
-    /* Badge Populer */
-    .badge {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        background: #ffb26b;
-        color: #7d4011;
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-        z-index: 10;
-    }
 
-    .card img { width: 100%; height: 220px; object-fit: cover; }
-    .card-info { padding: 25px; text-align: center; }
-    .card-info h3 { margin-bottom: 10px; font-size: 1.3rem; color: #444; }
-    .card-info p { color: #ff7b54; font-weight: 800; font-size: 1.2rem; margin-bottom: 20px; }
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
 
-    ..btn-add {
+/* INFO */
+.card-info {
+    padding: 25px;
+    text-align: center;
+}
+
+/* BUTTON */
+.btn-add {
     width: 100%;
     padding: 15px;
     background: linear-gradient(135deg, #ff7b54, #ffb26b);
     border: none;
     color: white;
     border-radius: 15px;
-    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 123, 84, 0.3);
     transition: 0.3s;
 }
 
 .btn-add:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 123, 84, 0.4);
 }
 
-    /* KERANJANG */
-    .cart-section {
-        background: white;
-        border-radius: 30px;
-        padding: 30px;
-        margin-top: 60px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        border: 2px solid #fff1e6;
-    }
-    #cartList li { 
-        background: #fffaf5;
-        margin-bottom: 10px;
-        padding: 15px;
-        border-radius: 15px;
-        display: flex; 
-        justify-content: space-between; 
-    }
-
-    /* FLOATING BUTTONS */
-    .float-btn {
-        padding: 15px 25px;
-        border-radius: 50px;
-        text-decoration: none;
-        color: white;
-        font-weight: 600;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        transition: 0.3s;
-    }
-    .float-btn:hover { transform: scale(1.1); }
-
-    footer { 
-        background: #2d2d2d; 
-        padding: 60px 20px; 
-        color: white; 
-        text-align: center;
-        border-top-left-radius: 50px;
-        border-top-right-radius: 50px;
-    }
-
-    .hero h1 {
-    font-size: clamp(2.5rem, 8vw, 4rem); /* Ukuran otomatis mengecil di HP, membesar di Laptop */
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #fff;
-    /* Efek Shadow Berlapis (Efek Pop-Out) */
-    text-shadow: 
-        2px 2px 0px #e67e22, 
-        4px 4px 0px #d35400, 
-        6px 6px 15px rgba(0,0,0,0.3);
-    letter-spacing: 1px;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    font-style: italic;
+/* CART */
+.cart-section {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    margin-top: 60px;
 }
 
-/* Tambahkan sedikit animasi goyang agar menarik perhatian */
-.hero h1:hover {
-    transform: scale(1.02) rotate(-1deg);
-    transition: 0.3s ease;
+#cartList li {
+    background: #fffaf5;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Styling Kontrol di dalam Keranjang */
+/* QTY CONTROL */
 .cart-controls {
     display: flex;
     align-items: center;
@@ -222,76 +173,24 @@
 
 .qty-btn {
     background: #180e05;
-    border: none;
     color: white;
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: 0.2s;
-}
-
-.qty-btn:hover {
-    background: #160b07;
+    border: none;
 }
 
 .qty-num {
-    font-weight: 800;
-    font-size: 1rem;
     min-width: 25px;
     text-align: center;
 }
 
+/* DELETE BUTTON */
 .del-btn {
-    background: #fdf2f2;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 5px;
+    background: #ffeded;
+    color: #ff4d4d;
+    border: 1px solid #ffcccc;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
-    transition: 0.3s;
 }
-
-.del-btn:hover {
-    background: #fee2e2;
-}
-
-#cartList li {
-    background: #fffaf5;
-    color: #333;
-}
-
-    /* Styling Tombol Hapus (Batal) */
-    .del-btn {
-        background: #ffeded; /* Merah sangat muda */
-        color: #ff4d4d;    /* Merah terang */
-        border: 1px solid #ffcccc;
-        cursor: pointer;
-        font-size: 1.2rem;
-        font-weight: bold;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        margin-left: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.3s;
-    }
-
-    .del-btn:hover {
-        background: #ff4d4d;
-        color: white;
-        transform: scale(1.1);
-    }
-
-    /* Styling angka jumlah agar lebih rapi */
-    .qty-num {
-        display: inline-block;
-        min-width: 25px;
-        text-align: center;
-        font-weight: bold;
-    }
-</style>
