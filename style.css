@@ -27,15 +27,23 @@
 
     /* HERO SECTION */
     .hero {
-        text-align: center;
-        padding: 100px 20px;
-        background: linear-gradient(rgba(255, 123, 84, 0.8), rgba(255, 178, 107, 0.8)), 
-                    url('https://www.transparenttextures.com/patterns/food.png');
-        color: white;
-        border-bottom-left-radius: 50px;
-        border-bottom-right-radius: 50px;
-    }
-    .hero h1 { font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+    animation: moveBg 10s linear infinite;
+}
+
+@keyframes moveBg {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-50%, -50%); }
+}
 
     /* CONTAINER */
     .container { padding: 50px 5%; max-width: 1200px; margin: auto; }
@@ -64,16 +72,21 @@
         padding: 20px 0;
         scrollbar-width: none;
     }
-    .gallery-wrapper img {
-        width: 280px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 25px;
-        flex-shrink: 0;
-        border: 5px solid white;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transition: 0.3s;
-    }
+    .gallery-wrapper {
+    display: flex;
+    overflow: hidden;
+    gap: 20px;
+}
+
+.gallery-track {
+    display: flex;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
     .gallery-wrapper img:hover { transform: scale(1.05); }
 
     /* MENU GRID */
@@ -93,7 +106,9 @@
         transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
     }
-    .card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+    .card:hover { 
+    transform: translateY(-8px) scale(1.02);
+}
     
     /* Badge Populer */
     .badge {
@@ -114,17 +129,23 @@
     .card-info h3 { margin-bottom: 10px; font-size: 1.3rem; color: #444; }
     .card-info p { color: #ff7b54; font-weight: 800; font-size: 1.2rem; margin-bottom: 20px; }
 
-    .btn-add {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #ff7b54, #ffb26b);
-        border: none;
-        color: white;
-        border-radius: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        box-shadow: 0 5px 15px rgba(255, 123, 84, 0.3);
-    }
+    ..btn-add {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff7b54, #ffb26b);
+    border: none;
+    color: white;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 123, 84, 0.3);
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 123, 84, 0.4);
+}
 
     /* KERANJANG */
     .cart-section {
@@ -186,4 +207,86 @@
     transform: scale(1.02) rotate(-1deg);
     transition: 0.3s ease;
 }
+
+/* Styling Kontrol di dalam Keranjang */
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    background: #180e05;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    background: #160b07;
+}
+
+.qty-num {
+    font-weight: 800;
+    font-size: 1rem;
+    min-width: 25px;
+    text-align: center;
+}
+
+.del-btn {
+    background: #fdf2f2;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.del-btn:hover {
+    background: #fee2e2;
+}
+
+#cartList li {
+    background: #fffaf5;
+    color: #333;
+}
+
+    /* Styling Tombol Hapus (Batal) */
+    .del-btn {
+        background: #ffeded; /* Merah sangat muda */
+        color: #ff4d4d;    /* Merah terang */
+        border: 1px solid #ffcccc;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: bold;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+    }
+
+    .del-btn:hover {
+        background: #ff4d4d;
+        color: white;
+        transform: scale(1.1);
+    }
+
+    /* Styling angka jumlah agar lebih rapi */
+    .qty-num {
+        display: inline-block;
+        min-width: 25px;
+        text-align: center;
+        font-weight: bold;
+    }
 </style>
