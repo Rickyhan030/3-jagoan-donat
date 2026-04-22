@@ -68,6 +68,16 @@ nav {
     transition: 0.3s ease;
 }
 
+.hero {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hero::before {
+    z-index: 0;
+}
+
 /* CONTAINER */
 .container {
     padding: 50px 5%;
@@ -98,11 +108,12 @@ h2::after {
 /* GALERI SWIPE FIX HP   */
 /* ===================== */
 .gallery-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; /* ❗ PENTING: tidak boleh turun ke bawah */
-    overflow-x: auto;
-    overflow-y: hidden;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
 
     gap: 20px;
     padding: 20px 0;
@@ -110,6 +121,7 @@ h2::after {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
+    white-space: nowrap;
 }
 
 .gallery-wrapper::-webkit-scrollbar {
@@ -117,19 +129,16 @@ h2::after {
 }
 
 .gallery-wrapper img {
-    flex: 0 0 auto;
+    flex: 0 0 auto !important;
+    display: block !important;
+
     width: 280px;
     height: 200px;
     object-fit: cover;
+
     border-radius: 20px;
     scroll-snap-align: center;
-    transition: 0.3s;
 }
-
-.gallery-wrapper img:hover {
-    transform: scale(1.05);
-}
-
 /* MENU GRID */
 .products-grid {
     display: grid;
