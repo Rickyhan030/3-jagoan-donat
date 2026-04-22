@@ -1,4 +1,4 @@
-/* RESET */
+/* RESET & BASE */
 * {
     margin: 0;
     padding: 0;
@@ -6,13 +6,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
     background-color: #fffaf5;
     background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
     background-size: 20px 20px;
     color: #333;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -32,6 +32,7 @@ nav {
 /* HERO */
 .hero {
     position: relative;
+    text-align: center;
 }
 
 .hero::before {
@@ -48,6 +49,25 @@ nav {
     100% { transform: translate(-50%, -50%); }
 }
 
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 2px 2px 0px #e67e22,
+                 4px 4px 0px #d35400,
+                 6px 6px 15px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.hero h1:hover {
+    transform: scale(1.02) rotate(-1deg);
+    transition: 0.3s ease;
+}
+
 /* CONTAINER */
 .container {
     padding: 50px 5%;
@@ -60,6 +80,8 @@ h2 {
     text-align: center;
     margin-bottom: 40px;
     color: #ff7b54;
+    font-weight: 600;
+    position: relative;
 }
 
 h2::after {
@@ -72,11 +94,16 @@ h2::after {
     border-radius: 10px;
 }
 
-/* GALERI (FIX SWIPE HP) */
+/* ===================== */
+/* GALERI SWIPE FIX HP   */
+/* ===================== */
 .gallery-wrapper {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    flex-wrap: nowrap; /* ❗ PENTING: tidak boleh turun ke bawah */
     overflow-x: auto;
+    overflow-y: hidden;
+
     gap: 20px;
     padding: 20px 0;
 
@@ -90,12 +117,17 @@ h2::after {
 }
 
 .gallery-wrapper img {
+    flex: 0 0 auto;
     width: 280px;
     height: 200px;
     object-fit: cover;
     border-radius: 20px;
-    flex-shrink: 0;
     scroll-snap-align: center;
+    transition: 0.3s;
+}
+
+.gallery-wrapper img:hover {
+    transform: scale(1.05);
 }
 
 /* MENU GRID */
@@ -108,8 +140,10 @@ h2::after {
 /* CARD */
 .card {
     background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
     border-radius: 30px;
     overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 0 15px 35px rgba(0,0,0,0.05);
     transition: 0.3s;
 }
@@ -124,10 +158,22 @@ h2::after {
     object-fit: cover;
 }
 
-/* INFO */
 .card-info {
     padding: 25px;
     text-align: center;
+}
+
+.card-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #444;
+}
+
+.card-info p {
+    color: #ff7b54;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
 }
 
 /* BUTTON */
@@ -138,12 +184,15 @@ h2::after {
     border: none;
     color: white;
     border-radius: 15px;
+    font-weight: 600;
     cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 123, 84, 0.3);
     transition: 0.3s;
 }
 
 .btn-add:hover {
     transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 123, 84, 0.4);
 }
 
 /* CART */
@@ -152,19 +201,22 @@ h2::after {
     border-radius: 30px;
     padding: 30px;
     margin-top: 60px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 2px solid #fff1e6;
 }
 
 #cartList li {
     background: #fffaf5;
-    padding: 12px;
+    color: #333;
     margin-bottom: 10px;
-    border-radius: 12px;
+    padding: 15px;
+    border-radius: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* QTY CONTROL */
+/* QTY */
 .cart-controls {
     display: flex;
     align-items: center;
@@ -173,19 +225,21 @@ h2::after {
 
 .qty-btn {
     background: #180e05;
+    border: none;
     color: white;
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    border: none;
+    cursor: pointer;
 }
 
 .qty-num {
     min-width: 25px;
     text-align: center;
+    font-weight: bold;
 }
 
-/* DELETE BUTTON */
+/* DELETE */
 .del-btn {
     background: #ffeded;
     color: #ff4d4d;
@@ -193,4 +247,30 @@ h2::after {
     width: 32px;
     height: 32px;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+/* FLOAT BUTTON */
+.float-btn {
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.float-btn:hover {
+    transform: scale(1.1);
+}
+
+/* FOOTER */
+footer {
+    background: #2d2d2d;
+    padding: 60px 20px;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
 }
