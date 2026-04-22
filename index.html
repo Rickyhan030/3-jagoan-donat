@@ -207,9 +207,24 @@ nav {
 
 <!-- FLOAT -->
 <div class="float">
-    <a class="wa" href="https://wa.me/6281234567890">WhatsApp</a>
-    <a class="fb" href="https://facebook.com">Facebook</a>
-    <a class="cartbtn" href="#cartList">Cart</a>
+    
+    <!-- WhatsApp -->
+   <a class="wa" href="javascript:sendWA()">
+   WhatsApp
+</a>
+
+    <!-- Facebook -->
+    <a class="fb" 
+       href="https://www.facebook.com/namapagekamu"
+       target="_blank">
+       Facebook
+    </a>
+
+    <!-- Keranjang -->
+    <a class="cartbtn" href="#cartList">
+       Cart
+    </a>
+
 </div>
 
 <!-- TOAST -->
@@ -283,6 +298,21 @@ function toast(msg){
 }
 
 render();
+</script>
+    <script>
+function sendWA(){
+    let nomor = "6282110677862"; // ganti nomor kamu
+
+    let text = "Halo saya mau pesan:%0A";
+
+    cart.forEach(i => {
+        text += "- " + i.nama + " x" + i.jumlah + "%0A";
+    });
+
+    let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
+
+    window.open(url, "_blank");
+}
 </script>
 
 </body>
