@@ -283,3 +283,28 @@ footer {
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
 }
+
+.cart-section {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+#cartList li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fffaf5;
+    border-radius: 12px;
+}
+
+#cartList button {
+    margin: 0 3px;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
