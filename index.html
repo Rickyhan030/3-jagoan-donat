@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Bakery | Toko Roti Online</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #fffaf5; color: #333; line-height: 1.6; }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background: #92402b;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ff7b54, #ffb26b);
+            color: white;
+        }
+        .hero h1 { font-size: 2rem; margin-bottom: 10px; }
+
+        /* CONTAINER UMUM */
+        .container { padding: 40px 5%; max-width: 1200px; margin: auto; }
+        h2 { text-align: center; margin-bottom: 30px; color: #ff7b54; font-weight: 600; }
+
+        /* GALERI SLIDER (Horizontal Scroll) */
+        .gallery-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 20px;
+            scrollbar-width: thin;
+        }
+        .gallery-wrapper img {
+            width: 250px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* MENU GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .card-info p { color: #ff7b54; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; }
+
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            background: #ff7b54;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-add:hover { background: #e86a43; }
+
+        /* KERANJANG */
+        .cart-section {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 2px dashed #ff7b54;
+        }
+        #cartList { list-style: none; margin-bottom: 20px; }
+        #cartList li { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 10px 0; 
+            border-bottom: 1px solid #eee; 
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-group {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2000;
+        }
+        .float-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .bg-wa { background: #25d366; }
+        .bg-fb { background: #1877f2; }
+
+        footer { text-align: center; padding: 40px; background: #333; color: white; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<<nav>
+    <div class="nav-container" ... >
+        <h2 style="font-size: 2.2rem; letter-spacing: 1px; font-weight: 800;">🍩 Sweet Bakery</h2>
+        ...
+    </div>
+</nav>
+
+<section class="hero">
+    <h1 style="
+    font-size: 3.5rem; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 3px 3px 0px #d35400, 6px 6px 0px rgba(0,0,0,0.1);
+    letter-spacing: 2px;
+    line-height: 1.1;
+">
+    3 JAGOAN DONAT <br> & BAKERY
+</h1>
+    <p>Fresh dari oven, langsung ke pintu rumahmu!</p>
+</section>
+
+<div class="container">
+    <h2>Galeri Kami</h2>
+    <div class="gallery-wrapper">
+        <img src="donat1.jpg" alt="Donat Coklat">
+        <img src="donat2.jpg" alt="Donat Keju">
+        <img src="donat3.webp" alt="Donat Mix">
+        <img src="donat4.jpg" alt="Varian Roti">
+    </div>
+</div>
+
+<div class="container">
+    <h2>Menu Pilihan</h2>
+    <div class="products-grid">
+        
+        <div class="card">
+            <img src="donat coklat.jpg" alt="Donat Coklat">
+            <div class="card-info">
+                <h3>Donat Coklat</h3>
+                <p>Rp 5.000</p>
+                <button class="btn-add" onclick="addCart('Donat Coklat', 5000)">Tambah Pesanan</button>
+            </div>
+            <div class="card">
+    <div class="badge">Best Seller</div> <img src="donat coklat.jpg" alt="Donat Coklat">
+    <div class="card-info">
+        <h3>Donat Coklat</h3>
+        <p>Rp 5.000</p>
+        <button class="btn-add" onclick="addCart('Donat Coklat', 5000)">Tambah ke Keranjang</button>
+    </div>
+</div>
+        </div>
+
+        <div class="card">
+            <img src="donat kerju2.jpg" alt="Donat Keju">
+            <div class="card-info">
+                <h3>Donat Keju</h3>
+                <p>Rp 6.000</p>
+                <button class="btn-add" onclick="addCart('Donat Keju', 6000)">Tambah Pesanan</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="donat mix.jpg" alt="Roti Manis">
+            <div class="card-info">
+                <h3>Roti Manis</h3>
+                <p>Rp 7.000</p>
+                <button class="btn-add" onclick="addCart('Roti Manis', 7000)">Tambah Pesanan</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="cart-section">
+        <h3>🛒 Keranjang Kamu</h3>
+        <ul id="cartList">
+            <li style="color: #888;">Belum ada item dipilih...</li>
+        </ul>
+        <h4 id="total" style="margin-bottom: 15px;">Total: Rp 0</h4>
+        <button class="btn-checkout" onclick="checkout()">Checkout via WhatsApp</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Sweet Bakery - All Rights Reserved</p>
+</footer>
+
+<div class="floating-group">
+    <a href="https://wa.me/628XXXXXXXXXX" target="_blank" class="float-btn bg-wa">💬 WhatsApp</a>
+    <a href="https://m.me/USER_FB" target="_blank" class="float-btn bg-fb">📘 Facebook</a>
+</div>
+
+<script>
+    let cart = [];
+
+    function addCart(nama, harga) {
+        cart.push({nama, harga});
+        renderCart();
+    }
+
+    function renderCart() {
+        let list = document.getElementById("cartList");
+        let total = 0;
+        list.innerHTML = "";
+
+        if (cart.length === 0) {
+            list.innerHTML = "<li style='color: #888;'>Belum ada item dipilih...</li>";
+        }
+
+        cart.forEach((item) => {
+            total += item.harga;
+            list.innerHTML += `<li><span>${item.nama}</span> <b>Rp ${item.harga.toLocaleString()}</b></li>`;
+        });
+
+        document.getElementById("total").innerText = "Total: Rp " + total.toLocaleString();
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert("Keranjang masih kosong!");
+            return;
+        }
+        let nomor = "628XXXXXXXXXX"; // GANTI NOMOR DISINI
+        let text = "*Pesanan Baru - Sweet Bakery*\n\n";
+        cart.forEach(item => {
+            text += `- ${item.nama} (Rp ${item.harga.toLocaleString()})\n`;
+        });
+        
+        let totalHarga = cart.reduce((sum, item) => sum + item.harga, 0);
+        text += `\n*Total Akhir: Rp ${totalHarga.toLocaleString()}*`;
+
+        let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
+        window.open(url, "_blank");
+    }
+</script>
+
+</body>
+</html>

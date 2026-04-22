@@ -1,0 +1,189 @@
+<style>
+    /* RESET & BASE */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    
+    body { 
+        background-color: #fffaf5;
+        /* Tambahan tekstur halus agar tidak polos */
+        background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
+        background-size: 20px 20px;
+        color: #333; 
+        line-height: 1.6; 
+    }
+
+    /* NAVBAR - Dibuat lebih modern */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(255, 123, 84, 0.95);
+        backdrop-filter: blur(10px); /* Efek kaca */
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* HERO SECTION */
+    .hero {
+        text-align: center;
+        padding: 100px 20px;
+        background: linear-gradient(rgba(255, 123, 84, 0.8), rgba(255, 178, 107, 0.8)), 
+                    url('https://www.transparenttextures.com/patterns/food.png');
+        color: white;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+    }
+    .hero h1 { font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+    /* CONTAINER */
+    .container { padding: 50px 5%; max-width: 1200px; margin: auto; }
+    h2 { 
+        text-align: center; 
+        margin-bottom: 40px; 
+        color: #ff7b54; 
+        font-weight: 600;
+        position: relative;
+    }
+    h2::after { /* Garis dekorasi di bawah judul */
+        content: '';
+        width: 60px;
+        height: 4px;
+        background: #ffb26b;
+        display: block;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+
+    /* GALERI SLIDER */
+    .gallery-wrapper {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 20px 0;
+        scrollbar-width: none;
+    }
+    .gallery-wrapper img {
+        width: 280px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 25px;
+        flex-shrink: 0;
+        border: 5px solid white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+    .gallery-wrapper img:hover { transform: scale(1.05); }
+
+    /* MENU GRID */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(5px);
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.3);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+    }
+    .card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+    
+    /* Badge Populer */
+    .badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #ffb26b;
+        color: #7d4011;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .card img { width: 100%; height: 220px; object-fit: cover; }
+    .card-info { padding: 25px; text-align: center; }
+    .card-info h3 { margin-bottom: 10px; font-size: 1.3rem; color: #444; }
+    .card-info p { color: #ff7b54; font-weight: 800; font-size: 1.2rem; margin-bottom: 20px; }
+
+    .btn-add {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #ff7b54, #ffb26b);
+        border: none;
+        color: white;
+        border-radius: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(255, 123, 84, 0.3);
+    }
+
+    /* KERANJANG */
+    .cart-section {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        margin-top: 60px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        border: 2px solid #fff1e6;
+    }
+    #cartList li { 
+        background: #fffaf5;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 15px;
+        display: flex; 
+        justify-content: space-between; 
+    }
+
+    /* FLOATING BUTTONS */
+    .float-btn {
+        padding: 15px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        transition: 0.3s;
+    }
+    .float-btn:hover { transform: scale(1.1); }
+
+    footer { 
+        background: #2d2d2d; 
+        padding: 60px 20px; 
+        color: white; 
+        text-align: center;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+    }
+
+    .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem); /* Ukuran otomatis mengecil di HP, membesar di Laptop */
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    /* Efek Shadow Berlapis (Efek Pop-Out) */
+    text-shadow: 
+        2px 2px 0px #e67e22, 
+        4px 4px 0px #d35400, 
+        6px 6px 15px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Tambahkan sedikit animasi goyang agar menarik perhatian */
+.hero h1:hover {
+    transform: scale(1.02) rotate(-1deg);
+    transition: 0.3s ease;
+}
+</style>
