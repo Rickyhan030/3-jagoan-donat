@@ -64,29 +64,23 @@
         border-radius: 10px;
     }
 
+    /* GALERI SLIDER */
+    .gallery-wrapper {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 20px 0;
+        scrollbar-width: none;
+    }
     .gallery-wrapper {
     display: flex;
-    overflow-x: auto; /* ✅ aktifkan swipe */
+    overflow: hidden;
     gap: 20px;
-    padding: 20px 0;
-
-    scroll-snap-type: x mandatory; /* biar geser rapi */
-    -webkit-overflow-scrolling: touch; /* smooth di iPhone */
 }
 
-/* sembunyikan scrollbar */
-.gallery-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.gallery-wrapper img {
-    width: 280px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 20px;
-
-    flex-shrink: 0; /* ❗ penting biar tidak mengecil */
-    scroll-snap-align: center; /* efek snap */
+.gallery-track {
+    display: flex;
+    animation: scroll 20s linear infinite;
 }
 
 @keyframes scroll {
