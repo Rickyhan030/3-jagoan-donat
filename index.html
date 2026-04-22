@@ -320,6 +320,42 @@ function sendWA(){
     window.open(url, "_blank");
 }
 </script>
+    <script>
+function checkout(){
+    if(cart.length === 0){
+        alert("Keranjang kosong!");
+        return;
+    }
+
+    let nama = document.getElementById("nama").value;
+    let alamat = document.getElementById("alamat").value;
+
+    if(nama === "" || alamat === ""){
+        alert("Nama dan alamat wajib diisi!");
+        return;
+    }
+
+    let nomor = "6282110677862"; // ganti WA kamu
+
+    let text = "🛒 *INVOICE BAKERY SHOP*\n\n";
+    text += "👤 Nama: " + nama + "\n";
+    text += "🏠 Alamat: " + alamat + "\n\n";
+    text += "📦 Pesanan:\n";
+
+    let total = 0;
+
+    cart.forEach(i=>{
+        let sub = i.harga * i.jumlah;
+        total += sub;
+        text += `• ${i.nama} x${i.jumlah} = Rp ${sub.toLocaleString()}\n`;
+    });
+
+    text += "\n💰 TOTAL: Rp " + total.toLocaleString();
+
+    let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
+    window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
