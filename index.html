@@ -3,357 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bakery Shop Level 2</title>
+<title>Bakery Shop</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-body {
-    background: #fffaf5;
-    overflow-x: hidden;
+body{
+    background:#fffaf5;
+    background-image: radial-gradient(#ff7b5421 1px, transparent 1px);
+    background-size:20px 20px;
+    color:#333;
 }
 
 /* NAV */
-nav {
-    background: #ff7b54;
-    padding: 15px;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* BADGE CART */
-#cartBadge {
-    background: red;
-    color: white;
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -8px;
-    right: -10px;
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,123,84,0.95);
+    padding:15px;
+    text-align:center;
+    color:white;
 }
 
 /* HERO */
-.hero {
-    text-align: center;
-    padding: 50px 20px;
-    background: linear-gradient(45deg,#ff7b54,#ffb26b);
-    color: white;
+.hero{
+    text-align:center;
+    padding:70px 20px;
 }
 
-.hero h1 {
-    font-size: 2rem;
+.hero h1{
+    font-size:clamp(2rem,6vw,4rem);
+    color:white;
+    font-weight:900;
+    text-shadow:2px 2px 0 #e67e22,4px 4px 0 #d35400;
 }
 
-/* SLIDER */
-.gallery-wrapper {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    padding: 15px;
-    scroll-snap-type: x mandatory;
+/* CONTAINER */
+.container{
+    padding:40px 5%;
+    max-width:1200px;
+    margin:auto;
 }
 
-.gallery-wrapper img {
-    width: 250px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 15px;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ff7b54;
+}
+
+/* GALLERY FIX SWIPE */
+.gallery-wrapper{
+    display:flex;
+    overflow-x:auto;
+    gap:15px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+}
+
+.gallery-wrapper::-webkit-scrollbar{
+    display:none;
+}
+
+.gallery-wrapper img{
+    flex:0 0 auto;
+    width:280px;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
+    scroll-snap-align:center;
 }
 
 /* PRODUCT */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
-    gap: 15px;
-    padding: 20px;
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
 }
 
-.card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
-.card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
 }
 
-.card button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: #ff7b54;
-    color: white;
+.card-info{
+    padding:15px;
+    text-align:center;
+}
+
+.btn{
+    background:linear-gradient(135deg,#ff7b54,#ffb26b);
+    color:white;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:10px;
+    cursor:pointer;
 }
 
 /* CART */
-.cart {
-    padding: 20px;
-    background: white;
-    margin: 20px;
-    border-radius: 15px;
+.cart-section{
+    margin-top:30px;
+    background:white;
+    padding:20px;
+    border-radius:15px;
 }
 
-#cartList li {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+#cartList li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+
+input,textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
 }
 
 /* FLOAT BUTTON */
-.float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.float{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.float a {
-    padding: 10px 15px;
-    border-radius: 50px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+.float a{
+    text-decoration:none;
+    color:white;
+    padding:10px 15px;
+    border-radius:50px;
+    font-weight:bold;
 }
 
-.wa { background: #25D366; }
-.fb { background: #1877F2; }
-.cartbtn { background: #ff7b54; }
-
-/* TOAST */
-#toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    opacity: 0;
-    transition: 0.3s;
-}
-#toast.show { opacity: 1; }
+.wa{background:#25D366;}
+.fb{background:#1877F2;}
+.cartbtn{background:#ff7b54;}
 </style>
 </head>
 
 <body>
 
 <nav>
-    <div>Donat & Bakery Shop</div>
-    <div style="position:relative;">
-        🛒
-        <div id="cartBadge">0</div>
-    </div>
+    <h3>Bakery Shop</h3>
 </nav>
 
-<div class="hero">
+<section class="hero">
     <h1>Fresh Bakery & Donut</h1>
-</div>
+</section>
 
-<!-- SLIDER -->
-<div class="gallery-wrapper">
-    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff">
-    <img src="https://images.unsplash.com/photo-1519869325930-281384150729">
-    <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f">
+<!-- GALLERY -->
+<div class="container">
+    <h2>Gallery</h2>
+    <div class="gallery-wrapper">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff">
+        <img src="https://images.unsplash.com/photo-1519869325930-281384150729">
+        <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f">
+    </div>
 </div>
 
 <!-- PRODUCT -->
-<div class="products">
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec">
-        <button onclick="addCart('Donat Coklat',10000)">Tambah</button>
-    </div>
+<div class="container">
+    <h2>Menu</h2>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
-        <button onclick="addCart('Roti Manis',8000)">Tambah</button>
+    <div class="products-grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec">
+            <div class="card-info">
+                <h3>Donat Coklat</h3>
+                <p>Rp 10.000</p>
+                <button class="btn" onclick="addCart('Donat Coklat',10000)">Tambah</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
+            <div class="card-info">
+                <h3>Roti Manis</h3>
+                <p>Rp 8.000</p>
+                <button class="btn" onclick="addCart('Roti Manis',8000)">Tambah</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <!-- CART -->
-<div class="cart">
-    <h3>Keranjang</h3>
-    <ul id="cartList"></ul>
-    <div id="total"></div>
-    <button onclick="checkout()" style="margin-top:10px;padding:10px;width:100%;background:#ff7b54;color:white;border:none;">
-        Checkout WhatsApp
-    </button>
+<div class="container" id="cart">
+    <h2>Keranjang</h2>
+
+    <input id="nama" placeholder="Nama">
+    <textarea id="alamat" placeholder="Alamat"></textarea>
+
+    <div class="cart-section">
+        <ul id="cartList"></ul>
+        <h3 id="total">Total: Rp 0</h3>
+
+        <button class="btn" onclick="checkout()">Checkout WhatsApp</button>
+    </div>
 </div>
 
-<!-- FLOAT -->
+<!-- FLOAT BUTTON -->
 <div class="float">
-    
-    <!-- WhatsApp -->
-   <a class="wa" href="javascript:sendWA()">
-   WhatsApp
-</a>
 
-    <!-- Facebook -->
-    <a class="fb" 
-       href="https://www.facebook.com/namapagekamu"
-       target="_blank">
-       Facebook
-    </a>
+    <a class="wa" href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
 
-    <!-- Keranjang -->
-    <a class="cartbtn" href="#cartList">
-       Cart
-    </a>
+    <a class="fb" href="https://facebook.com" target="_blank">Facebook</a>
+
+    <a class="cartbtn" href="#cart">Cart 🛒</a>
 
 </div>
 
-<!-- TOAST -->
-<div id="toast"></div>
-
+<!-- SCRIPT FULL -->
 <script>
-<script>
-let cart = [];
+let cart=[];
 
-function addCart(nama, harga) {
-    let item = cart.find(i => i.nama === nama);
-    item ? item.jumlah++ : cart.push({ nama, harga, jumlah: 1 });
-    showToast(nama + " ditambahkan");
+function addCart(nama,harga){
+    let item=cart.find(i=>i.nama===nama);
+    item?item.jumlah++:cart.push({nama,harga,jumlah:1});
     render();
 }
 
-function render() {
-    let list = document.getElementById("cartList");
-    list.innerHTML = "";
+function render(){
+    let list=document.getElementById("cartList");
+    list.innerHTML="";
+    let total=0;
 
-    let total = 0;
+    cart.forEach((i,index)=>{
+        let sub=i.harga*i.jumlah;
+        total+=sub;
 
-    cart.forEach((i, idx) => {
-        let sub = i.harga * i.jumlah;
-        total += sub;
-
-        list.innerHTML += `
+        list.innerHTML+=`
         <li>
             ${i.nama} x${i.jumlah}
             <div>
-                <button onclick="minus(${idx})">-</button>
-                <button onclick="plus(${idx})">+</button>
-                <button onclick="hapus(${idx})">❌</button>
+                <button onclick="minus(${index})">-</button>
+                <button onclick="plus(${index})">+</button>
+                <button onclick="del(${index})">❌</button>
             </div>
         </li>`;
     });
 
-    document.getElementById("total").innerHTML =
-    "<b>Total: Rp " + total.toLocaleString() + "</b>";
-
-    document.getElementById("cartBadge").style.display = cart.length ? "flex" : "none";
-    document.getElementById("cartBadge").innerText =
-    cart.reduce((a,b)=>a+b.jumlah,0);
+    document.getElementById("total").innerText="Total: Rp "+total.toLocaleString();
 }
 
-function plus(i){ cart[i].jumlah++; render(); }
-function minus(i){ cart[i].jumlah--; if(cart[i].jumlah<=0) cart.splice(i,1); render(); }
-function hapus(i){ cart.splice(i,1); render(); }
+function plus(i){cart[i].jumlah++;render();}
+function minus(i){cart[i].jumlah--;if(cart[i].jumlah<=0)cart.splice(i,1);render();}
+function del(i){cart.splice(i,1);render();}
 
 function checkout(){
-    if(cart.length === 0){
-        alert("Keranjang kosong!");
-        return;
-    }
+    if(cart.length===0)return alert("Kosong!");
 
-    let nomor = "6281234567890";
-    let text = "🛒 ORDER BAKERY\n\n";
+    let nama=document.getElementById("nama").value;
+    let alamat=document.getElementById("alamat").value;
 
-    let total = 0;
+    if(!nama||!alamat)return alert("Isi data!");
+
+    let nomor="6282110677862";
+
+    let text="🛒 INVOICE BAKERY\n\n";
+    text+="Nama: "+nama+"\nAlamat: "+alamat+"\n\n";
+
+    let total=0;
 
     cart.forEach(i=>{
-        let sub = i.harga * i.jumlah;
-        total += sub;
-        text += `• ${i.nama} x${i.jumlah} = Rp ${sub.toLocaleString()}\n`;
+        let sub=i.harga*i.jumlah;
+        total+=sub;
+        text+=`• ${i.nama} x${i.jumlah} = Rp ${sub.toLocaleString()}\n`;
     });
 
-    text += "\nTOTAL: Rp " + total.toLocaleString();
+    text+="\nTOTAL: Rp "+total.toLocaleString();
 
     window.open("https://wa.me/"+nomor+"?text="+encodeURIComponent(text));
-}
-
-function showToast(msg){
-    let t = document.getElementById("toast");
-    t.innerText = msg;
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"),2000);
-}
-
-render();
-</script>
-    <script>
-function sendWA(){
-    let nomor = "6282110677862"; // ganti nomor kamu
-
-    let text = "Halo saya mau pesan:%0A";
-
-    cart.forEach(i => {
-        text += "- " + i.nama + " x" + i.jumlah + "%0A";
-    });
-
-    let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
-
-    window.open(url, "_blank");
-}
-</script>
-    <script>
-function checkout(){
-    if(cart.length === 0){
-        alert("Keranjang kosong!");
-        return;
-    }
-
-    let nama = document.getElementById("nama").value;
-    let alamat = document.getElementById("alamat").value;
-
-    if(nama === "" || alamat === ""){
-        alert("Nama dan alamat wajib diisi!");
-        return;
-    }
-
-    let nomor = "6282110677862"; // ganti WA kamu
-
-    let text = "🛒 *INVOICE BAKERY SHOP*\n\n";
-    text += "👤 Nama: " + nama + "\n";
-    text += "🏠 Alamat: " + alamat + "\n\n";
-    text += "📦 Pesanan:\n";
-
-    let total = 0;
-
-    cart.forEach(i=>{
-        let sub = i.harga * i.jumlah;
-        total += sub;
-        text += `• ${i.nama} x${i.jumlah} = Rp ${sub.toLocaleString()}\n`;
-    });
-
-    text += "\n💰 TOTAL: Rp " + total.toLocaleString();
-
-    let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
-    window.open(url, "_blank");
 }
 </script>
 
