@@ -65,22 +65,17 @@
     }
 
     /* GALERI SLIDER */
-    .gallery-wrapper {
-        display: flex;
-        overflow-x: auto;
-        gap: 20px;
-        padding: 20px 0;
-        scrollbar-width: none;
-    }
-    .gallery-wrapper {
+   .gallery-wrapper {
     display: flex;
-    overflow: hidden;
+    overflow-x: auto; /* ✅ aktifkan scroll horizontal */
     gap: 20px;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
-.gallery-track {
-    display: flex;
-    animation: scroll 20s linear infinite;
+.gallery-wrapper img {
+    scroll-snap-align: center;
 }
 
 @keyframes scroll {
