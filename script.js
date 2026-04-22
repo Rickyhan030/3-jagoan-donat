@@ -1,5 +1,5 @@
 function checkoutWA(){
-  let nomor = "628XXXXXXXXXX";
+  let nomor = "6282110677862";
 
   let text = "Halo, saya ingin pesan:\n";
   cart.forEach(item=>{
