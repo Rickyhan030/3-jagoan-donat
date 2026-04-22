@@ -164,7 +164,7 @@ nav {
 <body>
 
 <nav>
-    <div>Bakery Shop</div>
+    <div>Donat & Bakery Shop</div>
     <div style="position:relative;">
         🛒
         <div id="cartBadge">0</div>
@@ -231,15 +231,13 @@ nav {
 <div id="toast"></div>
 
 <script>
+<script>
 let cart = [];
-
-const ONGKIR = 10000;
-const DISKON = 0.1;
 
 function addCart(nama, harga) {
     let item = cart.find(i => i.nama === nama);
-    item ? item.jumlah++ : cart.push({nama, harga, jumlah:1});
-    toast(nama + " ditambahkan");
+    item ? item.jumlah++ : cart.push({ nama, harga, jumlah: 1 });
+    showToast(nama + " ditambahkan");
     render();
 }
 
@@ -247,11 +245,11 @@ function render() {
     let list = document.getElementById("cartList");
     list.innerHTML = "";
 
-    let sub = 0;
+    let total = 0;
 
     cart.forEach((i, idx) => {
-        let total = i.harga * i.jumlah;
-        sub += total;
+        let sub = i.harga * i.jumlah;
+        total += sub;
 
         list.innerHTML += `
         <li>
@@ -264,17 +262,12 @@ function render() {
         </li>`;
     });
 
-    let diskon = sub * DISKON;
-    let total = sub - diskon + ONGKIR;
-
     document.getElementById("total").innerHTML =
-    "Subtotal: " + sub.toLocaleString() +
-    "<br>Diskon: " + diskon.toLocaleString() +
-    "<br>Ongkir: " + ONGKIR +
-    "<br><b>Total: " + total.toLocaleString() + "</b>";
+    "<b>Total: Rp " + total.toLocaleString() + "</b>";
 
     document.getElementById("cartBadge").style.display = cart.length ? "flex" : "none";
-    document.getElementById("cartBadge").innerText = cart.reduce((a,b)=>a+b.jumlah,0);
+    document.getElementById("cartBadge").innerText =
+    cart.reduce((a,b)=>a+b.jumlah,0);
 }
 
 function plus(i){ cart[i].jumlah++; render(); }
@@ -282,15 +275,28 @@ function minus(i){ cart[i].jumlah--; if(cart[i].jumlah<=0) cart.splice(i,1); ren
 function hapus(i){ cart.splice(i,1); render(); }
 
 function checkout(){
-    let text = "ORDER BAKERY:\n";
+    if(cart.length === 0){
+        alert("Keranjang kosong!");
+        return;
+    }
+
+    let nomor = "6281234567890";
+    let text = "🛒 ORDER BAKERY\n\n";
+
+    let total = 0;
+
     cart.forEach(i=>{
-        text += i.nama+" x"+i.jumlah+"\n";
+        let sub = i.harga * i.jumlah;
+        total += sub;
+        text += `• ${i.nama} x${i.jumlah} = Rp ${sub.toLocaleString()}\n`;
     });
 
-    window.open("https://wa.me/6281234567890?text="+encodeURIComponent(text));
+    text += "\nTOTAL: Rp " + total.toLocaleString();
+
+    window.open("https://wa.me/"+nomor+"?text="+encodeURIComponent(text));
 }
 
-function toast(msg){
+function showToast(msg){
     let t = document.getElementById("toast");
     t.innerText = msg;
     t.classList.add("show");
