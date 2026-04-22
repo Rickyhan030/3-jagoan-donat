@@ -1,113 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakery Shop Clean</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #fffaf5;
+    overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+    background: #ff7b54;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+/* CART BADGE */
+#cartBadge {
+    background: red;
+    color: white;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(45deg,#ff7b54,#ffb26b);
+    color: white;
+}
+
+/* SLIDER */
+.gallery-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 15px;
+    scroll-snap-type: x mandatory;
+}
+
+.gallery-wrapper img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+}
+
+/* PRODUCT */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.card button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #ff7b54;
+    color: white;
+    cursor: pointer;
+}
+
+/* CART */
+.cart {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+#cartList li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* FLOAT */
+.float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float a {
+    padding: 10px 15px;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.wa { background: #25D366; }
+.fb { background: #1877F2; }
+.cartbtn { background: #ff7b54; }
+
+/* TOAST */
+#toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: 0.3s;
+}
+#toast.show { opacity: 1; }
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div>Bakery Shop</div>
+    <div style="position:relative;">
+        🛒
+        <div id="cartBadge">0</div>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>Fresh Bakery</h1>
+</div>
+
+<!-- SLIDER -->
+<div class="gallery-wrapper">
+    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff">
+    <img src="https://images.unsplash.com/photo-1519869325930-281384150729">
+    <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f">
+</div>
+
+<!-- PRODUCT -->
+<div class="products">
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec">
+        <button onclick="addCart('Donat Coklat',10000)">Tambah</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
+        <button onclick="addCart('Roti Manis',8000)">Tambah</button>
+    </div>
+</div>
+
+<!-- CART -->
+<div class="cart">
+    <h3>Keranjang</h3>
+    <ul id="cartList"></ul>
+    <div id="total"></div>
+    <button onclick="checkout()" style="margin-top:10px;width:100%;padding:10px;background:#ff7b54;color:white;border:none;">
+        Checkout WhatsApp
+    </button>
+</div>
+
+<!-- FLOAT -->
+<div class="float">
+    <a class="wa" href="https://wa.me/6281234567890?text=Halo%20saya%20mau%20pesan">WhatsApp</a>
+    <a class="fb" href="https://facebook.com">Facebook</a>
+    <a class="cartbtn" href="#cartList">Cart</a>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
 <script>
 let cart = [];
 
-/* =========================
-   TAMBAH KE KERANJANG
-========================= */
+/* ADD CART */
 function addCart(nama, harga) {
     let item = cart.find(i => i.nama === nama);
-
-    if (item) {
-        item.jumlah += 1;
-    } else {
-        cart.push({
-            nama: nama,
-            harga: harga,
-            jumlah: 1
-        });
-    }
-
-    renderCart();
+    item ? item.jumlah++ : cart.push({nama, harga, jumlah:1});
+    showToast(nama + " ditambahkan");
+    render();
 }
 
-/* =========================
-   UPDATE JUMLAH
-========================= */
-function updateQty(index, type) {
-    if (type === "plus") {
-        cart[index].jumlah++;
-    } else {
-        cart[index].jumlah--;
-        if (cart[index].jumlah <= 0) {
-            cart.splice(index, 1);
-        }
-    }
-
-    renderCart();
-}
-
-/* =========================
-   HAPUS ITEM
-========================= */
-function deleteItem(index) {
-    cart.splice(index, 1);
-    renderCart();
-}
-
-/* =========================
-   RENDER KERANJANG
-========================= */
-function renderCart() {
+/* RENDER */
+function render() {
     let list = document.getElementById("cartList");
     list.innerHTML = "";
 
     let total = 0;
 
-    if (cart.length === 0) {
-        list.innerHTML = "<li style='text-align:center;color:#888;'>Keranjang masih kosong 🛒</li>";
-        document.getElementById("total").innerText = "Total: Rp 0";
-        return;
-    }
-
-    cart.forEach((item, index) => {
-        let subtotal = item.harga * item.jumlah;
-        total += subtotal;
-
-        list.innerHTML += `
-            <li>
-                <div>
-                    <strong>${item.nama}</strong><br>
-                    <small>Rp ${item.harga.toLocaleString()}</small>
-                </div>
-
-                <div class="cart-controls">
-                    <button onclick="updateQty(${index}, 'minus')">-</button>
-                    <span>${item.jumlah}</span>
-                    <button onclick="updateQty(${index}, 'plus')">+</button>
-                    <button onclick="deleteItem(${index})">❌</button>
-                </div>
-            </li>
-        `;
-    });
-
-    document.getElementById("total").innerText =
-        "Total: Rp " + total.toLocaleString();
-}
-
-/* =========================
-   CHECKOUT WHATSAPP
-========================= */
-function checkout() {
-    if (cart.length === 0) {
-        alert("Keranjang masih kosong!");
-        return;
-    }
-
-    let nomor = "6281234567890"; // GANTI NOMOR WA KAMU
-    let text = "*🛒 PESANAN BAKERY SHOP*\n\n";
-
-    let total = 0;
-
-    cart.forEach(item => {
-        let sub = item.harga * item.jumlah;
+    cart.forEach((i, idx) => {
+        let sub = i.harga * i.jumlah;
         total += sub;
 
-        text += `• ${item.nama} x${item.jumlah} = Rp ${sub.toLocaleString()}\n`;
+        list.innerHTML += `
+        <li>
+            ${i.nama} x${i.jumlah}
+            <div>
+                <button onclick="minus(${idx})">-</button>
+                <button onclick="plus(${idx})">+</button>
+                <button onclick="hapus(${idx})">❌</button>
+            </div>
+        </li>`;
     });
 
-    text += `\n*TOTAL BAYAR: Rp ${total.toLocaleString()}*`;
+    document.getElementById("total").innerHTML =
+    "<b>Total: Rp " + total.toLocaleString() + "</b>";
 
-    let url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
-    window.open(url, "_blank");
+    document.getElementById("cartBadge").style.display = cart.length ? "flex" : "none";
+    document.getElementById("cartBadge").innerText =
+    cart.reduce((a,b)=>a+b.jumlah,0);
 }
+
+/* ACTION */
+function plus(i){ cart[i].jumlah++; render(); }
+function minus(i){ cart[i].jumlah--; if(cart[i].jumlah<=0) cart.splice(i,1); render(); }
+function hapus(i){ cart.splice(i,1); render(); }
+
+/* CHECKOUT */
+function checkout(){
+    if(cart.length === 0){
+        alert("Keranjang kosong!");
+        return;
+    }
+
+    let nomor = "6282110677862";
+    let text = "🛒 ORDER BAKERY\n\n";
+
+    cart.forEach(i=>{
+        text += `• ${i.nama} x${i.jumlah}\n`;
+    });
+
+    let total = cart.reduce((a,b)=>a + (b.harga*b.jumlah),0);
+
+    text += "\nTOTAL: Rp " + total.toLocaleString();
+
+    window.open("https://wa.me/"+nomor+"?text="+encodeURIComponent(text));
+}
+
+/* TOAST */
+function showToast(msg){
+    let t = document.getElementById("toast");
+    t.innerText = msg;
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+render();
 </script>
+
+</body>
+</html>
