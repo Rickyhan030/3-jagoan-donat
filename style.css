@@ -65,17 +65,28 @@
     }
 
     /* GALERI SLIDER */
-    .gallery-wrapper {
-        display: flex;
-        overflow-x: auto;
-        gap: 20px;
-        padding: 20px 0;
-        scrollbar-width: none;
-    }
-    .gallery-wrapper {
+   .gallery-wrapper {
     display: flex;
-    overflow: hidden;
+    overflow-x: auto;
     gap: 20px;
+    padding: 20px 0;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-wrapper img {
+    width: 280px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+
+    flex-shrink: 0;
+    scroll-snap-align: center;
 }
 
 .gallery-track {
